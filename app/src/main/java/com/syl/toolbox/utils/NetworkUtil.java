@@ -59,6 +59,15 @@ public class NetworkUtil {
      * @param <T>
      */
     public <T> void addToRequestQueue(Request<T> request) {
-        mRequestQueue.add(request);
+        getRequestQueue().add(request);
+    }
+
+    /**
+     * 取消指定TAG的请求
+     *
+     * @param tag
+     */
+    public void cancelAllWithTAG(String tag) {
+        getRequestQueue().cancelAll(tag);
     }
 }

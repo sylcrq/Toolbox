@@ -65,18 +65,6 @@ public class MainActivityFragment extends Fragment {
 
         final String url = "http://apis.baidu.com/apistore/weatherservice/weather" + "?" + "citypinyin" + "=" + "beijing";
 
-//        Request<String> request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-//            @Override
-//            public void onResponse(String response) {
-//                Toast.makeText(getActivity(), response, Toast.LENGTH_SHORT).show();
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                Toast.makeText(getActivity(), error.toString(), Toast.LENGTH_SHORT).show();
-//            }
-//        });
-
         Map<String, String> headers = new HashMap<>();
         headers.put("apikey", "07b662d06be1eb930c67d26159e30e1b");
 
@@ -84,8 +72,6 @@ public class MainActivityFragment extends Fragment {
                 new Response.Listener<WeatherInfoResp>() {
                     @Override
                     public void onResponse(WeatherInfoResp response) {
-                        //Toast.makeText(getActivity(), response.toString(), Toast.LENGTH_SHORT).show();
-
                         WeatherInfo info = response.getRetData();
 
                         mCity.setText(info.getCity());
@@ -100,6 +86,8 @@ public class MainActivityFragment extends Fragment {
                     Toast.makeText(getActivity(), error.toString(), Toast.LENGTH_SHORT).show();
                 }
         });
+
+        request.setTag(TAG);
 
         NetworkUtil.getInstance(getActivity()).addToRequestQueue(request);
     }
@@ -124,6 +112,7 @@ public class MainActivityFragment extends Fragment {
 
         Log.d(TAG, "onStop");
 
-        // TODO: Cancel Network Task
+        // Cancel Network Task
+        NetworkUtil.getInstance(getActivity()).cancelAllWithTAG(TAG);
     }
 }
