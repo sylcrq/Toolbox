@@ -17,11 +17,36 @@
         android:textSize="30sp"/>
 
     <LinearLayout
-        android:id="@+id/city_layout"
+        android:id="@+id/search_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_below="@+id/title"
+        android:layout_marginTop="20dp"
+        android:gravity="center_vertical">
+
+        <EditText
+            android:id="@+id/search_text"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/search_hint"
+            android:inputType="text"
+            android:imeOptions="actionGo"/>
+
+        <ImageView
+            android:id="@+id/search_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/ic_search_36dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/city_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/search_layout"
         android:layout_marginTop="20dp">
         <TextView
             android:layout_width="wrap_content"

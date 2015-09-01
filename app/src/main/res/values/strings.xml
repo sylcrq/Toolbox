@@ -12,4 +12,8 @@
     <string name="unknown">N/A</string>
     
     <string name="weatherinfo_app_title">天气查询</string>
+
+    <string name="search_hint">请输入查询的城市名称</string>
+
+    <string name="search_error">没有相关城市的天气信息</string>
 </resources>
