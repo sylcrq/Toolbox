@@ -16,3 +16,7 @@ git submodule update
 
     通过Git工具[Submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules)来管理对Volley的依赖关系
 
+2. [fastjson](https://github.com/alibaba/fastjson)
+
+3. [Butter Knife](https://github.com/JakeWharton/butterknife)
+
