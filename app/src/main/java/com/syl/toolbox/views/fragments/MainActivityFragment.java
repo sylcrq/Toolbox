@@ -12,7 +12,6 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.syl.toolbox.BaiduApiRequest;
 import com.syl.toolbox.R;
 import com.syl.toolbox.models.WeatherInfo;
@@ -22,6 +21,9 @@ import com.syl.toolbox.utils.NetworkUtil;
 import java.util.HashMap;
 import java.util.Map;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * A placeholder fragment containing a simple view.
  */
@@ -29,10 +31,10 @@ public class MainActivityFragment extends Fragment {
 
     public static final String TAG = MainActivityFragment.class.getSimpleName();
 
-    private TextView mCity;
-    private TextView mWeather;
-    private TextView mTemperature;
-    private TextView mTime;
+    @Bind(R.id.city_tv) TextView mCity;
+    @Bind(R.id.weather_tv) TextView mWeather;
+    @Bind(R.id.temperature_tv) TextView mTemperature;
+    @Bind(R.id.time_tv) TextView mTime;
 
     public MainActivityFragment() {
     }
@@ -42,7 +44,10 @@ public class MainActivityFragment extends Fragment {
                              Bundle savedInstanceState) {
         Log.d(TAG, "onCreateView");
 
-        return inflater.inflate(R.layout.fragment_main, container, false);
+        View view = inflater.inflate(R.layout.fragment_main, container, false);
+        ButterKnife.bind(this, view);
+
+        return view;
     }
 
     @Override
@@ -50,12 +55,6 @@ public class MainActivityFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         Log.d(TAG, "onViewCreated");
-
-        // TODO: DataBinding
-        mCity = (TextView) view.findViewById(R.id.city_tv);
-        mWeather = (TextView) view.findViewById(R.id.weather_tv);
-        mTemperature = (TextView) view.findViewById(R.id.temperature_tv);
-        mTime = (TextView) view.findViewById(R.id.time_tv);
     }
 
     @Override

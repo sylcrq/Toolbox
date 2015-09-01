@@ -29,4 +29,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.2.1'
     compile project(':volley')
     compile 'com.alibaba:fastjson:1.2.6'
+    compile 'com.jakewharton:butterknife:7.0.1'
 }
