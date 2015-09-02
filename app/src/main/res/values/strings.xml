@@ -16,4 +16,9 @@
     <string name="search_hint">请输入查询的城市名称</string>
 
     <string name="search_error">没有相关城市的天气信息</string>
+
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_identity">身份证查询</string>
+    <string name="title_activity_ipaddress">IP地址查询</string>
+    <string name="title_activity_weather">天气查询</string>
 </resources>

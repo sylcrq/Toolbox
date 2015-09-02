@@ -1,35 +1,25 @@
 package com.syl.toolbox.views.fragments;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.syl.toolbox.BaiduApiRequest;
 import com.syl.toolbox.R;
-import com.syl.toolbox.models.WeatherInfo;
-import com.syl.toolbox.models.WeatherInfoResp;
-import com.syl.toolbox.utils.NetworkUtil;
-
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.HashMap;
-import java.util.Map;
+import com.syl.toolbox.views.activities.IPAddressActivity;
+import com.syl.toolbox.views.activities.IdentityActivity;
+import com.syl.toolbox.views.activities.WeatherActivity;
 
 import butterknife.Bind;
 import butterknife.BindString;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -38,15 +28,11 @@ public class MainActivityFragment extends Fragment {
 
     public static final String TAG = MainActivityFragment.class.getSimpleName();
 
-    public static final String REQUEST_URL = "http://apis.baidu.com/apistore/weatherservice/cityname";
+    @Bind(R.id.toolbox_list) ListView mToolBoxList;
 
-    @Bind(R.id.city_tv) TextView mCity;
-    @Bind(R.id.weather_tv) TextView mWeather;
-    @Bind(R.id.temperature_tv) TextView mTemperature;
-    @Bind(R.id.time_tv) TextView mTime;
-    @Bind(R.id.search_text) EditText mSearchCity;
-
-    @BindString(R.string.search_error) String mSearchErrorTips;
+    @BindString(R.string.title_activity_weather) String mWeatherTitle;
+    @BindString(R.string.title_activity_identity) String mIdentityTitle;
+    @BindString(R.string.title_activity_ipaddress) String mIPAddressTitle;
 
     public MainActivityFragment() {
     }
@@ -68,17 +54,18 @@ public class MainActivityFragment extends Fragment {
 
         Log.d(TAG, "onViewCreated");
 
-        mSearchCity.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        // TODO: adapter
+        final String[] array = {mWeatherTitle, mIdentityTitle, mIPAddressTitle};
+        final Class[] clazz = {WeatherActivity.class, IdentityActivity.class, IPAddressActivity.class};
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, array);
+
+        mToolBoxList.setAdapter(adapter);
+        mToolBoxList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                boolean handled = false;
-
-                if(actionId == EditorInfo.IME_ACTION_GO) {
-                    loadData();
-                    handled = true;
-                }
-
-                return handled;
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getActivity(), clazz[position]);
+                startActivity(intent);
             }
         });
     }
@@ -109,50 +96,5 @@ public class MainActivityFragment extends Fragment {
         super.onStop();
 
         Log.d(TAG, "onStop");
-
-        // Cancel Network Task
-        NetworkUtil.getInstance(getActivity()).cancelAllWithTAG(TAG);
-    }
-
-    @OnClick(R.id.search_button)
-    public void loadData() {
-        String url = REQUEST_URL + "?" + "cityname" + "=";
-
-        try {
-            url += URLEncoder.encode(mSearchCity.getText().toString(), "utf-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-
-        Map<String, String> headers = new HashMap<>();
-        headers.put("apikey", "07b662d06be1eb930c67d26159e30e1b");
-
-        Request<WeatherInfoResp> request = new BaiduApiRequest<>(url, WeatherInfoResp.class, headers,
-                new Response.Listener<WeatherInfoResp>() {
-                    @Override
-                    public void onResponse(WeatherInfoResp response) {
-
-                        if(response.getErrNum() == 0) {
-                            WeatherInfo info = response.getRetData();
-
-                            mCity.setText(info.getCity());
-                            mWeather.setText(info.getWeather());
-                            mTemperature.setText(info.getTemp());
-                            mTime.setText(info.getDate() + " " + info.getTime());
-                        } else {
-                            Toast.makeText(getActivity(), mSearchErrorTips, Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                // Error
-                Toast.makeText(getActivity(), "Error: "+mSearchErrorTips, Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        request.setTag(TAG);
-
-        NetworkUtil.getInstance(getActivity()).addToRequestQueue(request);
     }
 }
