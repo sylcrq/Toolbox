@@ -20,3 +20,6 @@ git submodule update
 
 3. [Butter Knife](https://github.com/JakeWharton/butterknife)
 
+## APP架构设计思路
+
+![APP架构图](http://7xlizf.com1.z0.glb.clouddn.com/APP架构.png)
