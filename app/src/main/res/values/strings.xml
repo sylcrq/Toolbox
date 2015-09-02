@@ -13,13 +13,21 @@
     <string name="identity_info_birthday">出生日期：</string>
     <string name="identity_info_address">所在地区：</string>
 
+    <string name="ipaddress_info_ip">IP：</string>
+    <string name="ipaddress_info_country">国家：</string>
+    <string name="ipaddress_info_city">地区：</string>
+    <string name="ipaddress_info_carrier">服务提供商：</string>
+    
     <string name="unknown">N/A</string>
 
     <string name="weather_search_hint">请输入查询的城市名称</string>
     <string name="weather_search_error">没有相关城市的天气信息</string>
 
-    <string name="identity_search_hit">请输入查询的身份证号码</string>
+    <string name="identity_search_hint">请输入查询的身份证号码</string>
     <string name="identity_search_error">没有相关的身份证信息</string>
+
+    <string name="ipaddress_search_hint">请输入查询的IP地址</string>
+    <string name="ipaddress_search_error">没有相关的IP地址信息</string>
 
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_identity">身份证查询</string>
