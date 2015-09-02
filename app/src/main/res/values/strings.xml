@@ -9,16 +9,22 @@
     <string name="weatherinfo">天气情况：</string>
     <string name="weatherinfo_temp">气温：</string>
 
+    <string name="identity_info_sex">性别：</string>
+    <string name="identity_info_birthday">出生日期：</string>
+    <string name="identity_info_address">所在地区：</string>
+
     <string name="unknown">N/A</string>
-    
-    <string name="weatherinfo_app_title">天气查询</string>
 
-    <string name="search_hint">请输入查询的城市名称</string>
+    <string name="weather_search_hint">请输入查询的城市名称</string>
+    <string name="weather_search_error">没有相关城市的天气信息</string>
 
-    <string name="search_error">没有相关城市的天气信息</string>
+    <string name="identity_search_hit">请输入查询的身份证号码</string>
+    <string name="identity_search_error">没有相关的身份证信息</string>
 
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_identity">身份证查询</string>
     <string name="title_activity_ipaddress">IP地址查询</string>
     <string name="title_activity_weather">天气查询</string>
+
+
 </resources>

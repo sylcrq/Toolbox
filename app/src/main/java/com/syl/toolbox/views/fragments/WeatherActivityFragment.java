@@ -46,7 +46,7 @@ public class WeatherActivityFragment extends Fragment {
     @Bind(R.id.time_tv) TextView mTime;
     @Bind(R.id.search_text) EditText mSearchCity;
 
-    @BindString(R.string.search_error) String mSearchErrorTips;
+    @BindString(R.string.weather_search_error) String mSearchErrorTips;
 
     public WeatherActivityFragment() {
     }

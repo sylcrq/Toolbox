@@ -13,7 +13,7 @@
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/weatherinfo_app_title"
+        android:text="@string/title_activity_weather"
         android:textSize="30sp"/>
 
     <LinearLayout
@@ -27,9 +27,9 @@
 
         <EditText
             android:id="@+id/search_text"
-            android:layout_width="200dp"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:hint="@string/search_hint"
+            android:hint="@string/weather_search_hint"
             android:inputType="text"
             android:imeOptions="actionGo"/>
 
