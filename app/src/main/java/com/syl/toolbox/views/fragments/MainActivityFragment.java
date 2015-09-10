@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.syl.toolbox.R;
+import com.syl.toolbox.views.activities.GirlsPicActivity;
 import com.syl.toolbox.views.activities.IPAddressActivity;
 import com.syl.toolbox.views.activities.IdentityActivity;
 import com.syl.toolbox.views.activities.WeatherActivity;
@@ -33,6 +34,7 @@ public class MainActivityFragment extends Fragment {
     @BindString(R.string.title_activity_weather) String mWeatherTitle;
     @BindString(R.string.title_activity_identity) String mIdentityTitle;
     @BindString(R.string.title_activity_ipaddress) String mIPAddressTitle;
+    @BindString(R.string.title_activity_girls_pic) String mGirlsPicTitle;
 
     public MainActivityFragment() {
     }
@@ -55,8 +57,8 @@ public class MainActivityFragment extends Fragment {
         Log.d(TAG, "onViewCreated");
 
         // TODO: adapter
-        final String[] array = {mWeatherTitle, mIdentityTitle, mIPAddressTitle};
-        final Class[] clazz = {WeatherActivity.class, IdentityActivity.class, IPAddressActivity.class};
+        final String[] array = {mWeatherTitle, mIdentityTitle, mIPAddressTitle, mGirlsPicTitle};
+        final Class[] clazz = {WeatherActivity.class, IdentityActivity.class, IPAddressActivity.class, GirlsPicActivity.class};
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, array);
 
