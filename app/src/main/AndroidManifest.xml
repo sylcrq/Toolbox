@@ -35,6 +35,10 @@
             android:name=".views.activities.GirlsPicActivity"
             android:label="@string/title_activity_girls_pic" >
         </activity>
+        <activity
+            android:name=".views.activities.ListViewActivity"
+            android:label="@string/title_activity_list_view" >
+        </activity>
     </application>
 
 </manifest>

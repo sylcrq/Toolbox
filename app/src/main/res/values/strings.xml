@@ -34,6 +34,7 @@
     <string name="title_activity_ipaddress">IP地址查询</string>
     <string name="title_activity_weather">天气查询</string>
     <string name="title_activity_girls_pic">美女图片</string>
+    <string name="title_activity_list_view">ListView Demo</string>
 
 
 </resources>
