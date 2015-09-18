@@ -9,7 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.syl.toolbox.R;
 
 import butterknife.Bind;
@@ -22,7 +26,20 @@ public class GirlsPicFragment extends Fragment {
 
     public static final String TAG = GirlsPicFragment.class.getSimpleName();
 
+    private DisplayImageOptions mOptions;
+
     @Bind(R.id.image) ImageView mImage;
+
+    public GirlsPicFragment() {
+        mOptions = new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.drawable.ic_stub)
+                .showImageForEmptyUri(R.drawable.ic_empty)
+                .showImageOnFail(R.drawable.ic_error)
+                .cacheOnDisk(true)
+                .imageScaleType(ImageScaleType.EXACTLY)
+                .displayer(new FadeInBitmapDisplayer(300))
+                .build();
+    }
 
     @Nullable
     @Override
@@ -35,10 +52,7 @@ public class GirlsPicFragment extends Fragment {
         Bundle bundle = getArguments();
         String content = bundle.getString("arg");
 
-        if(!content.isEmpty()) {
-            // TODO:
-            ImageLoader.getInstance().displayImage(content, mImage);
-        }
+        ImageLoader.getInstance().displayImage(content, mImage, mOptions, new SimpleImageLoadingListener());
 
         return view;
     }
