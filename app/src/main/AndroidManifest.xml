@@ -11,6 +11,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+        <!-- Activity -->
         <activity
             android:name=".views.activities.MainActivity"
             android:label="@string/app_name" >
@@ -40,6 +41,17 @@
             android:name=".views.activities.ListViewActivity"
             android:label="@string/title_activity_list_view" >
         </activity>
+        <activity
+            android:name=".views.activities.LocalServiceTestActivity"
+            android:label="@string/title_activity_local_service_test" >
+        </activity>
+
+        <!-- Service -->
+        <service
+            android:name=".services.LocalService"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
     </application>
 
 </manifest>
