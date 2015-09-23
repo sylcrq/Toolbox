@@ -18,6 +18,7 @@ import com.syl.toolbox.views.activities.IPAddressActivity;
 import com.syl.toolbox.views.activities.IdentityActivity;
 import com.syl.toolbox.views.activities.ListViewActivity;
 import com.syl.toolbox.views.activities.LocalServiceTestActivity;
+import com.syl.toolbox.views.activities.OCRActivity;
 import com.syl.toolbox.views.activities.WeatherActivity;
 
 import butterknife.Bind;
@@ -39,6 +40,7 @@ public class MainActivityFragment extends Fragment {
     @BindString(R.string.title_activity_girls_pic) String mGirlsPicTitle;
     @BindString(R.string.title_activity_list_view) String mListViewTitle;
     @BindString(R.string.title_activity_local_service_test) String mLocalServiceTitle;
+    @BindString(R.string.title_activity_ocr) String mOCRTitle;
 
     public MainActivityFragment() {
     }
@@ -66,14 +68,16 @@ public class MainActivityFragment extends Fragment {
                                 mIPAddressTitle,
                                 mGirlsPicTitle,
                                 mListViewTitle,
-                                mLocalServiceTitle};
+                                mLocalServiceTitle,
+                                mOCRTitle};
 
         final Class[] clazz = {WeatherActivity.class,
                                 IdentityActivity.class,
                                 IPAddressActivity.class,
                                 GirlsPicActivity.class,
                                 ListViewActivity.class,
-                                LocalServiceTestActivity.class};
+                                LocalServiceTestActivity.class,
+                                OCRActivity.class};
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, array);
 

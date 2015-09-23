@@ -11,6 +11,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+
         <!-- Activity -->
         <activity
             android:name=".views.activities.MainActivity"
@@ -44,6 +45,10 @@
         <activity
             android:name=".views.activities.LocalServiceTestActivity"
             android:label="@string/title_activity_local_service_test" >
+        </activity>
+        <activity
+            android:name=".views.activities.OCRActivity"
+            android:label="@string/title_activity_ocr" >
         </activity>
 
         <!-- Service -->
