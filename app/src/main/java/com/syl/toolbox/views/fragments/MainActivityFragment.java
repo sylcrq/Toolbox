@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.syl.toolbox.R;
+import com.syl.toolbox.views.activities.CursorLoaderListActivity;
 import com.syl.toolbox.views.activities.GirlsPicActivity;
 import com.syl.toolbox.views.activities.IPAddressActivity;
 import com.syl.toolbox.views.activities.IdentityActivity;
@@ -41,6 +42,7 @@ public class MainActivityFragment extends Fragment {
     @BindString(R.string.title_activity_list_view) String mListViewTitle;
     @BindString(R.string.title_activity_local_service_test) String mLocalServiceTitle;
     @BindString(R.string.title_activity_ocr) String mOCRTitle;
+    @BindString(R.string.title_activity_cursor_loader_list) String mCursorLoaderTitle;
 
     public MainActivityFragment() {
     }
@@ -69,7 +71,9 @@ public class MainActivityFragment extends Fragment {
                                 mGirlsPicTitle,
                                 mListViewTitle,
                                 mLocalServiceTitle,
-                                mOCRTitle};
+                                mOCRTitle,
+                                mCursorLoaderTitle
+                                };
 
         final Class[] clazz = {WeatherActivity.class,
                                 IdentityActivity.class,
@@ -77,7 +81,9 @@ public class MainActivityFragment extends Fragment {
                                 GirlsPicActivity.class,
                                 ListViewActivity.class,
                                 LocalServiceTestActivity.class,
-                                OCRActivity.class};
+                                OCRActivity.class,
+                                CursorLoaderListActivity.class
+                                };
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, array);
 
