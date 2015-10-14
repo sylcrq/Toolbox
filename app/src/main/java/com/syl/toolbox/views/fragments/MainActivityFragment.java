@@ -20,6 +20,9 @@ import com.syl.toolbox.views.activities.IdentityActivity;
 import com.syl.toolbox.views.activities.ListViewActivity;
 import com.syl.toolbox.views.activities.LocalServiceTestActivity;
 import com.syl.toolbox.views.activities.OCRActivity;
+import com.syl.toolbox.views.activities.SingleInstanceAActivity;
+import com.syl.toolbox.views.activities.SingleTaskAActivity;
+import com.syl.toolbox.views.activities.SingleTopAActivity;
 import com.syl.toolbox.views.activities.WeatherActivity;
 
 import butterknife.Bind;
@@ -72,7 +75,10 @@ public class MainActivityFragment extends Fragment {
                                 mListViewTitle,
                                 mLocalServiceTitle,
                                 mOCRTitle,
-                                mCursorLoaderTitle
+                                mCursorLoaderTitle,
+                                "SingleTop Mode",
+                                "SingleTask Mode",
+                                "SingleInstance Mode"
                                 };
 
         final Class[] clazz = {WeatherActivity.class,
@@ -82,7 +88,10 @@ public class MainActivityFragment extends Fragment {
                                 ListViewActivity.class,
                                 LocalServiceTestActivity.class,
                                 OCRActivity.class,
-                                CursorLoaderListActivity.class
+                                CursorLoaderListActivity.class,
+                                SingleTopAActivity.class,
+                                SingleTaskAActivity.class,
+                                SingleInstanceAActivity.class
                                 };
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, array);

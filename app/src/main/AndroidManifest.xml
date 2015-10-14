@@ -63,6 +63,42 @@
             android:name=".views.activities.CursorLoaderListActivity"
             android:label="@string/title_activity_cursor_loader_list" >
         </activity>
+
+        <activity
+            android:name=".views.activities.SingleTopAActivity"
+            android:launchMode="singleTop" >
+        </activity>
+        <activity
+            android:name=".views.activities.SingleTopBActivity"
+            android:launchMode="singleTop" >
+        </activity>
+        <activity
+            android:name=".views.activities.SingleTopCActivity"
+            android:launchMode="singleTop" >
+        </activity>
+        <activity
+            android:name=".views.activities.SingleTaskAActivity"
+            android:launchMode="singleTask" >
+        </activity>
+        <activity
+            android:name=".views.activities.SingleTaskBActivity"
+            android:launchMode="singleTask" >
+        </activity>
+        <activity
+            android:name=".views.activities.SingleTaskCActivity"
+            android:launchMode="singleTask" >
+        </activity>
+        <activity
+            android:name=".views.activities.SingleInstanceAActivity"
+            android:launchMode="singleInstance">
+        </activity>
+        <activity
+            android:name=".views.activities.SingleInstanceBActivity"
+            android:launchMode="singleInstance">
+        </activity>
+        <activity android:name=".views.activities.SingleInstanceCActivity"
+            android:launchMode="singleInstance">
+        </activity>
     </application>
 
 </manifest>
