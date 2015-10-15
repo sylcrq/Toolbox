@@ -11,6 +11,11 @@ import com.syl.toolbox.R;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * LaunchMode="standard" Activity A
+ *
+ * Add by syl, 2015/101/15
+ */
 public class StandardAActivity extends AppCompatActivity {
 
     public static final String TAG = StandardAActivity.class.getSimpleName();
@@ -20,7 +25,7 @@ public class StandardAActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch_mode_test);
 
-        Log.d(TAG, "onCreate: " + this);
+        Log.d(TAG, "Task " + getTaskId() + " # onCreate: " + this);
         ButterKnife.bind(this);
     }
 
@@ -35,28 +40,28 @@ public class StandardAActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        Log.d(TAG, "onResume: " + this);
+        //Log.d(TAG, "onResume: " + this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
 
-        Log.d(TAG, "onPause: " + this);
+        //Log.d(TAG, "onPause: " + this);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        Log.d(TAG, "onStart: " + this);
+        //Log.d(TAG, "onStart: " + this);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
 
-        Log.d(TAG, "onStop: " + this);
+        //Log.d(TAG, "onStop: " + this);
     }
 
     @Override

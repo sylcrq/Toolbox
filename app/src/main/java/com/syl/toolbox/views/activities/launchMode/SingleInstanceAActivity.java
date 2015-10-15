@@ -25,12 +25,54 @@ public class SingleInstanceAActivity extends AppCompatActivity implements View.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch_mode_test);
 
-        Log.d(TAG, "onCreate: " + this);
+        Log.d(TAG, "Task " + getTaskId() + " # onCreate: " + this);
         ButterKnife.bind(this);
 
         mStartAButton.setOnClickListener(this);
         mStartBButton.setOnClickListener(this);
         mStartCButton.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        Log.d(TAG, "onDestroy: " + this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        //Log.d(TAG, "onResume: " + this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        //Log.d(TAG, "onPause: " + this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        //Log.d(TAG, "onStart: " + this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        //Log.d(TAG, "onStop: " + this);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+
+        Log.d(TAG, "onNewIntent: " + this);
     }
 
     @Override
