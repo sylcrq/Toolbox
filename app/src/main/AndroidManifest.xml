@@ -64,41 +64,50 @@
             android:label="@string/title_activity_cursor_loader_list" >
         </activity>
 
+        <!-- LaunchMode Example Activity Start -->
+        <activity android:name=".views.activities.launchMode.StandardAActivity" >
+        </activity>
+        <activity android:name=".views.activities.launchMode.StandardBActivity" >
+        </activity>
+        <activity android:name=".views.activities.launchMode.StandardCActivity" >
+        </activity>
         <activity
-            android:name=".views.activities.SingleTopAActivity"
+            android:name=".views.activities.launchMode.SingleTopAActivity"
             android:launchMode="singleTop" >
         </activity>
         <activity
-            android:name=".views.activities.SingleTopBActivity"
+            android:name=".views.activities.launchMode.SingleTopBActivity"
             android:launchMode="singleTop" >
         </activity>
         <activity
-            android:name=".views.activities.SingleTopCActivity"
+            android:name=".views.activities.launchMode.SingleTopCActivity"
             android:launchMode="singleTop" >
         </activity>
         <activity
-            android:name=".views.activities.SingleTaskAActivity"
+            android:name=".views.activities.launchMode.SingleTaskAActivity"
             android:launchMode="singleTask" >
         </activity>
         <activity
-            android:name=".views.activities.SingleTaskBActivity"
+            android:name=".views.activities.launchMode.SingleTaskBActivity"
             android:launchMode="singleTask" >
         </activity>
         <activity
-            android:name=".views.activities.SingleTaskCActivity"
+            android:name=".views.activities.launchMode.SingleTaskCActivity"
             android:launchMode="singleTask" >
         </activity>
         <activity
-            android:name=".views.activities.SingleInstanceAActivity"
-            android:launchMode="singleInstance">
+            android:name=".views.activities.launchMode.SingleInstanceAActivity"
+            android:launchMode="singleInstance" >
         </activity>
         <activity
-            android:name=".views.activities.SingleInstanceBActivity"
-            android:launchMode="singleInstance">
+            android:name=".views.activities.launchMode.SingleInstanceBActivity"
+            android:launchMode="singleInstance" >
         </activity>
-        <activity android:name=".views.activities.SingleInstanceCActivity"
-            android:launchMode="singleInstance">
+        <activity
+            android:name=".views.activities.launchMode.SingleInstanceCActivity"
+            android:launchMode="singleInstance" >
         </activity>
+        <!-- LaunchMode Example Activity End -->
     </application>
 
 </manifest>

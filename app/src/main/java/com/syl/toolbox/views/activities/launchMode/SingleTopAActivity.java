@@ -1,4 +1,4 @@
-package com.syl.toolbox.views.activities;
+package com.syl.toolbox.views.activities.launchMode;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -12,9 +12,9 @@ import com.syl.toolbox.R;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class SingleInstanceAActivity extends AppCompatActivity implements View.OnClickListener {
+public class SingleTopAActivity extends AppCompatActivity implements View.OnClickListener {
 
-    public static final String TAG = SingleInstanceAActivity.class.getSimpleName();
+    public static final String TAG = SingleTopAActivity.class.getSimpleName();
 
     @Bind(R.id.start_a) Button mStartAButton;
     @Bind(R.id.start_b) Button mStartBButton;
@@ -23,7 +23,7 @@ public class SingleInstanceAActivity extends AppCompatActivity implements View.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_single_top);
+        setContentView(R.layout.activity_launch_mode_test);
 
         Log.d(TAG, "onCreate: " + this);
         ButterKnife.bind(this);
@@ -37,13 +37,13 @@ public class SingleInstanceAActivity extends AppCompatActivity implements View.O
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.start_a:
-                doStartActivity(SingleInstanceAActivity.class);
+                doStartActivity(SingleTopAActivity.class);
                 break;
             case R.id.start_b:
-                doStartActivity(SingleInstanceBActivity.class);
+                doStartActivity(SingleTopBActivity.class);
                 break;
             case R.id.start_c:
-                doStartActivity(SingleInstanceCActivity.class);
+                doStartActivity(SingleTopCActivity.class);
                 break;
         }
     }

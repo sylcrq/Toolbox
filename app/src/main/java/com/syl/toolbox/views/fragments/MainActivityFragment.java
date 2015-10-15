@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.syl.toolbox.R;
 import com.syl.toolbox.views.activities.CursorLoaderListActivity;
@@ -20,10 +19,11 @@ import com.syl.toolbox.views.activities.IdentityActivity;
 import com.syl.toolbox.views.activities.ListViewActivity;
 import com.syl.toolbox.views.activities.LocalServiceTestActivity;
 import com.syl.toolbox.views.activities.OCRActivity;
-import com.syl.toolbox.views.activities.SingleInstanceAActivity;
-import com.syl.toolbox.views.activities.SingleTaskAActivity;
-import com.syl.toolbox.views.activities.SingleTopAActivity;
+import com.syl.toolbox.views.activities.launchMode.SingleInstanceAActivity;
+import com.syl.toolbox.views.activities.launchMode.SingleTaskAActivity;
+import com.syl.toolbox.views.activities.launchMode.SingleTopAActivity;
 import com.syl.toolbox.views.activities.WeatherActivity;
+import com.syl.toolbox.views.activities.launchMode.StandardAActivity;
 
 import butterknife.Bind;
 import butterknife.BindString;
@@ -76,6 +76,7 @@ public class MainActivityFragment extends Fragment {
                                 mLocalServiceTitle,
                                 mOCRTitle,
                                 mCursorLoaderTitle,
+                                "Standard Mode",
                                 "SingleTop Mode",
                                 "SingleTask Mode",
                                 "SingleInstance Mode"
@@ -89,6 +90,7 @@ public class MainActivityFragment extends Fragment {
                                 LocalServiceTestActivity.class,
                                 OCRActivity.class,
                                 CursorLoaderListActivity.class,
+                                StandardAActivity.class,
                                 SingleTopAActivity.class,
                                 SingleTaskAActivity.class,
                                 SingleInstanceAActivity.class
