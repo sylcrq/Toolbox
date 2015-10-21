@@ -108,6 +108,10 @@
             android:launchMode="singleInstance" >
         </activity>
         <!-- LaunchMode Example Activity End -->
+        <service
+            android:name=".services.UploadService"
+            android:exported="false" >
+        </service>
     </application>
 
 </manifest>

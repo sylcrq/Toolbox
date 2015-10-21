@@ -6,25 +6,27 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.Button;
 import com.syl.toolbox.R;
 import com.syl.toolbox.network.MyNetwork;
-
-import org.apache.http.HttpEntity;
+import com.syl.toolbox.services.UploadService;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class OCRActivityFragment extends Fragment {
+public class OCRActivityFragment extends Fragment implements View.OnClickListener{
 
     public static final String TAG = OCRActivityFragment.class.getSimpleName();
+
+    @Bind(R.id.upload_button) Button mUploadButton;
 
     public OCRActivityFragment() {
     }
@@ -45,6 +47,8 @@ public class OCRActivityFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         Log.d(TAG, "onViewCreated");
+
+        mUploadButton.setOnClickListener(this);
     }
 
     @Override
@@ -114,4 +118,13 @@ public class OCRActivityFragment extends Fragment {
     }
 
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.upload_button:
+                Log.d(TAG, "UI Thread="+Thread.currentThread().getId());
+                UploadService.startActionUpload(getActivity());
+                break;
+        }
+    }
 }
