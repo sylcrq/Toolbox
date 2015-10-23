@@ -43,4 +43,5 @@
     <string name="local_service_connected">Local Service Connected</string>
     <string name="local_service_disconnected">Local Service Disconnected</string>
     <string name="title_activity_cursor_loader_list">CursorLoader Example</string>
+    <string name="title_activity_toast">无需权限悬浮窗Demo</string>
 </resources>

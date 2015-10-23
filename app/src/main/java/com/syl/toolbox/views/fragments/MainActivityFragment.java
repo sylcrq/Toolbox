@@ -19,6 +19,7 @@ import com.syl.toolbox.views.activities.IdentityActivity;
 import com.syl.toolbox.views.activities.ListViewActivity;
 import com.syl.toolbox.views.activities.LocalServiceTestActivity;
 import com.syl.toolbox.views.activities.OCRActivity;
+import com.syl.toolbox.views.activities.ToastActivity;
 import com.syl.toolbox.views.activities.launchMode.SingleInstanceAActivity;
 import com.syl.toolbox.views.activities.launchMode.SingleTaskAActivity;
 import com.syl.toolbox.views.activities.launchMode.SingleTopAActivity;
@@ -46,6 +47,7 @@ public class MainActivityFragment extends Fragment {
     @BindString(R.string.title_activity_local_service_test) String mLocalServiceTitle;
     @BindString(R.string.title_activity_ocr) String mOCRTitle;
     @BindString(R.string.title_activity_cursor_loader_list) String mCursorLoaderTitle;
+    @BindString(R.string.title_activity_toast) String mToastTitle;
 
     public MainActivityFragment() {
     }
@@ -79,7 +81,8 @@ public class MainActivityFragment extends Fragment {
                                 "Standard Mode",
                                 "SingleTop Mode",
                                 "SingleTask Mode",
-                                "SingleInstance Mode"
+                                "SingleInstance Mode",
+                                mToastTitle
                                 };
 
         final Class[] clazz = {WeatherActivity.class,
@@ -93,7 +96,8 @@ public class MainActivityFragment extends Fragment {
                                 StandardAActivity.class,
                                 SingleTopAActivity.class,
                                 SingleTaskAActivity.class,
-                                SingleInstanceAActivity.class
+                                SingleInstanceAActivity.class,
+                                ToastActivity.class
                                 };
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, array);

@@ -58,6 +58,10 @@
             android:enabled="true"
             android:exported="true" >
         </service>
+        <service
+            android:name=".services.UploadService"
+            android:exported="false" >
+        </service>
 
         <activity
             android:name=".views.activities.CursorLoaderListActivity"
@@ -108,10 +112,12 @@
             android:launchMode="singleInstance" >
         </activity>
         <!-- LaunchMode Example Activity End -->
-        <service
-            android:name=".services.UploadService"
-            android:exported="false" >
-        </service>
+
+        <activity
+            android:name=".views.activities.ToastActivity"
+            android:label="@string/title_activity_toast"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
     </application>
 
 </manifest>
