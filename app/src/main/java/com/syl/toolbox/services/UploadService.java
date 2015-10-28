@@ -5,9 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.syl.toolbox.UploadFile;
-import com.syl.toolbox.UploadRequest;
-import com.syl.toolbox.UploadTask;
+import com.syl.toolbox.upload.MultipartUploadFile;
+import com.syl.toolbox.upload.MultipartUploadRequest;
+import com.syl.toolbox.upload.MultipartUploadTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,11 +55,11 @@ public class UploadService extends IntentService {
     private void handleActionUpload() {
         Log.d(TAG, "Thread "+Thread.currentThread().getId()+" # handleActionUpload");
 
-        String url = "http://posttestserver.com/post.php";
-        List<UploadFile> files = new ArrayList<>();
-        files.add(new UploadFile("file1024", "file1024.txt", "/sdcard/file1024.txt"));
-
-        UploadTask task = new UploadTask(new UploadRequest(url, files));
-        task.upload();
+//        String url = "http://posttestserver.com/post.php";
+//        List<MultipartUploadFile> files = new ArrayList<>();
+//        files.add(new MultipartUploadFile("file1024", "file1024.txt", "/sdcard/file1024.txt"));
+//
+//        MultipartUploadTask task = new MultipartUploadTask(new MultipartUploadRequest(url, files));
+//        task.upload();
     }
 }
