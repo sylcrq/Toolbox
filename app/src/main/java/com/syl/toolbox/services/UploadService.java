@@ -55,11 +55,18 @@ public class UploadService extends IntentService {
     private void handleActionUpload() {
         Log.d(TAG, "Thread "+Thread.currentThread().getId()+" # handleActionUpload");
 
+        final String path = "/sdcard/file1024.txt";
+        final String name = "file1024";
+        final String filename = "file1024.txt";
+        final String contentType = "text/plain";
+        MultipartUploadFile file = new MultipartUploadFile(path, name, filename, contentType);
+
+        String url = "http://10.1.36.99:3000/upload/multipart";
 //        String url = "http://posttestserver.com/post.php";
-//        List<MultipartUploadFile> files = new ArrayList<>();
-//        files.add(new MultipartUploadFile("file1024", "file1024.txt", "/sdcard/file1024.txt"));
-//
-//        MultipartUploadTask task = new MultipartUploadTask(new MultipartUploadRequest(url, files));
-//        task.upload();
+        MultipartUploadRequest request = new MultipartUploadRequest(url, MultipartUploadTask.METHOD_POST);
+        request.addRequestFile(file);
+
+        MultipartUploadTask task = new MultipartUploadTask(request);
+        task.upload();
     }
 }

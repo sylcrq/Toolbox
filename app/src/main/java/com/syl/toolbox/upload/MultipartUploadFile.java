@@ -22,8 +22,8 @@ public class MultipartUploadFile extends UploadFile {
         this.mContentType = contentType;
     }
 
-    public String getMultipartHeader() {
-        StringBuilder builder = new StringBuilder();
+    public String getMultipartUploadHeader() {
+        final StringBuilder builder = new StringBuilder();
 
         builder.append("Content-Disposition: form-data;")
                 .append(" name=\"").append(mName).append("\";")

@@ -18,7 +18,7 @@ public abstract class UploadFile {
         this.mFile = new File(path);
     }
 
-    public File getFile() {
+    public File getUploadFile() {
         return mFile;
     }
 }

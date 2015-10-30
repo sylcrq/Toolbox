@@ -1,10 +1,5 @@
 package com.syl.toolbox.upload;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 
 /**
  * Upload Task Abstract Base Class
@@ -14,18 +9,12 @@ import java.net.MalformedURLException;
  */
 public abstract class UploadTask {
 
-    protected UploadRequest uploadRequest;
-    protected HttpURLConnection connection;
-    protected OutputStream outputStream;
-    protected InputStream inputStream;
+    protected UploadRequest mUploadRequest;
 
     public UploadTask(UploadRequest request) {
-        this.uploadRequest = request;
+        this.mUploadRequest = request;
     }
 
     public abstract void upload();
-    public abstract HttpURLConnection getHTTPConnection() throws IOException;
-    public abstract void writeBody();
-    public abstract void readResponse();
 
 }

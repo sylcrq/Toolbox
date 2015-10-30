@@ -1,6 +1,8 @@
 package com.syl.toolbox.upload;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -12,20 +14,31 @@ import java.util.Map;
 public abstract class UploadRequest {
 
     // 唯一标识id
-    protected long mId;
+    protected long mUploadId;
     protected String mUrl;
     protected String mMethod;
     protected Map<String, String> mHeaders;
+    protected List<UploadFile> mFiles;
 
     public UploadRequest(String url, String method) {
-        this.mId = System.currentTimeMillis();
+        // TODO: unique Id
+        this.mUploadId = System.currentTimeMillis();
         this.mUrl = url;
         this.mMethod = method;
         this.mHeaders = new HashMap<>();
+        this.mFiles = new ArrayList<>();
     }
 
-    public void addHeader(String key, String value) {
+    public void addRequestHeader(String key, String value) {
         mHeaders.put(key, value);
+    }
+
+    public void addRequestFile(UploadFile file) {
+        mFiles.add(file);
+    }
+
+    public long getUploadId() {
+        return mUploadId;
     }
 
     public String getRequestUrl() {
@@ -34,5 +47,9 @@ public abstract class UploadRequest {
 
     public Map<String, String> getRequestHeaders() {
         return mHeaders;
+    }
+
+    public List<UploadFile> getRequestFiles() {
+        return mFiles;
     }
 }
