@@ -5,12 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import com.syl.toolbox.receivers.UploadServiceReceiver;
 import com.syl.toolbox.upload.MultipartUploadFile;
 import com.syl.toolbox.upload.MultipartUploadRequest;
 import com.syl.toolbox.upload.MultipartUploadTask;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Upload Service
@@ -55,10 +54,10 @@ public class UploadService extends IntentService {
     private void handleActionUpload() {
         Log.d(TAG, "Thread "+Thread.currentThread().getId()+" # handleActionUpload");
 
-        final String path = "/sdcard/file1024.txt";
-        final String name = "file1024";
-        final String filename = "file1024.txt";
-        final String contentType = "text/plain";
+        final String path = "/sdcard/DCIM/IQIYI/IQIYI_2015_1027_140229.mp4";
+        final String name = "IQIYI_2015_1027_140229";
+        final String filename = "IQIYI_2015_1027_140229.mp4";
+        final String contentType = "video/mpeg4";
         MultipartUploadFile file = new MultipartUploadFile(path, name, filename, contentType);
 
         String url = "http://10.1.36.99:3000/upload/multipart";
@@ -66,7 +65,49 @@ public class UploadService extends IntentService {
         MultipartUploadRequest request = new MultipartUploadRequest(url, MultipartUploadTask.METHOD_POST);
         request.addRequestFile(file);
 
-        MultipartUploadTask task = new MultipartUploadTask(request);
+        MultipartUploadTask task = new MultipartUploadTask(request, this);
         task.upload();
     }
+
+    public void sendUploadStart() {
+        Intent intent = new Intent();
+        intent.setAction(UploadServiceReceiver.UPLOAD_BROADCAST_ACTION);
+        intent.putExtra(UploadServiceReceiver.UPLOAD_STATUS, UploadServiceReceiver.UPLOAD_STATUS_START);
+        sendBroadcast(intent);
+    }
+
+    public void sendUploadStop() {
+        Intent intent = new Intent();
+        intent.setAction(UploadServiceReceiver.UPLOAD_BROADCAST_ACTION);
+        intent.putExtra(UploadServiceReceiver.UPLOAD_STATUS, UploadServiceReceiver.UPLOAD_STATUS_STOP);
+        sendBroadcast(intent);
+    }
+
+    public void sendUploadComplete() {
+        Intent intent = new Intent();
+        intent.setAction(UploadServiceReceiver.UPLOAD_BROADCAST_ACTION);
+        intent.putExtra(UploadServiceReceiver.UPLOAD_STATUS, UploadServiceReceiver.UPLOAD_STATUS_COMPLETE);
+        sendBroadcast(intent);
+    }
+
+    public void sendUploadError() {
+        Intent intent = new Intent();
+        intent.setAction(UploadServiceReceiver.UPLOAD_BROADCAST_ACTION);
+        intent.putExtra(UploadServiceReceiver.UPLOAD_STATUS, UploadServiceReceiver.UPLOAD_STATUS_ERROR);
+        sendBroadcast(intent);
+    }
+
+    public void sendUploadProgress(int percent) {
+        Intent intent = new Intent();
+        intent.setAction(UploadServiceReceiver.UPLOAD_BROADCAST_ACTION);
+        intent.putExtra(UploadServiceReceiver.UPLOAD_STATUS, UploadServiceReceiver.UPLOAD_STATUS_PROGRESS);
+        intent.putExtra(UploadServiceReceiver.UPLOAD_PROGRESS, percent);
+        sendBroadcast(intent);
+    }
+
+//    public void send2StaticReceiver() {
+//        Intent intent = new Intent();
+//        intent.setAction("com.syl.toolbox.receivers.StaticPublishReceiver");
+//        sendBroadcast(intent);
+//    }
 }

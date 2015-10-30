@@ -2,6 +2,9 @@ package com.syl.toolbox.upload;
 
 import android.os.Build;
 import android.util.Log;
+
+import com.syl.toolbox.services.UploadService;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -67,14 +70,16 @@ public class MultipartUploadTask extends UploadTask {
     private byte[] mTrailerBytes;
     private long mTotalBodyLength;
 
-    public MultipartUploadTask(MultipartUploadRequest request) {
-        super(request);
+    public MultipartUploadTask(MultipartUploadRequest request, UploadService service) {
+        super(request, service);
     }
 
     @Override
     public void upload() {
 
         try {
+            mUploadService.sendUploadStart();
+
             mBoundary = getBoundary();
             mBoundaryBytes = getBoundaryBytes();
             mTrailerBytes = getTrailerBytes();
@@ -110,11 +115,14 @@ public class MultipartUploadTask extends UploadTask {
 //                mInputStream = mConnection.getInputStream();
 //
 //                readResponse();
+                mUploadService.sendUploadComplete();
             } else {
                 Log.d(TAG, "upload failed ! code=" + code);
+                mUploadService.sendUploadError();
             }
         } catch (IOException e) {
             e.printStackTrace();
+            mUploadService.sendUploadError();
         } finally {
             // close
             closeInputStream();
@@ -218,9 +226,17 @@ public class MultipartUploadTask extends UploadTask {
 
         byte[] buffer = new byte[4096];
         int read;
+        long sended = 0;
 
         while ((read = inputStream.read(buffer, 0, buffer.length)) > 0) {
             mOutputStream.write(buffer, 0, read);
+
+            sended += read;
+            int percent = (int) (((double)sended / mTotalBodyLength) * 100);
+
+            Log.d(TAG, "uploading... " + percent + "%");
+
+            mUploadService.sendUploadProgress(percent);
         }
     }
 

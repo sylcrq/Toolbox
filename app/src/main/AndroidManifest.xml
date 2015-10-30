@@ -118,6 +118,15 @@
             android:label="@string/title_activity_toast"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
+
+        <receiver
+            android:name=".receivers.StaticPublishReceiver"
+            android:enabled="true"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="com.syl.toolbox.receivers.StaticPublishReceiver" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package com.syl.toolbox.views.fragments;
 
+import android.app.Activity;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
@@ -7,8 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.Toast;
+
 import com.syl.toolbox.R;
 import com.syl.toolbox.network.MyNetwork;
+import com.syl.toolbox.receivers.UploadServiceReceiver;
 import com.syl.toolbox.services.UploadService;
 
 import java.io.UnsupportedEncodingException;
@@ -27,6 +32,39 @@ public class OCRActivityFragment extends Fragment implements View.OnClickListene
     public static final String TAG = OCRActivityFragment.class.getSimpleName();
 
     @Bind(R.id.upload_button) Button mUploadButton;
+    @Bind(R.id.upload_progress_bar) ProgressBar mUploadProgress;
+
+    private Activity mActivity;
+
+    private UploadServiceReceiver mUploadReceiver = new UploadServiceReceiver() {
+
+        @Override
+        public void onUploadStart() {
+            Toast.makeText(mActivity, "Upload Start", Toast.LENGTH_SHORT).show();
+            mUploadProgress.setProgress(0);
+        }
+
+        @Override
+        public void onUploadStop() {
+            Toast.makeText(mActivity, "Upload Stop", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onUploadComplete() {
+            Toast.makeText(mActivity, "Upload OK", Toast.LENGTH_SHORT).show();
+            mUploadProgress.setProgress(100);
+        }
+
+        @Override
+        public void onUploadError() {
+            Toast.makeText(mActivity, "Upload Error", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void updateUploadProgress(int percent) {
+            mUploadProgress.setProgress(percent);
+        }
+    };
 
     public OCRActivityFragment() {
     }
@@ -49,6 +87,9 @@ public class OCRActivityFragment extends Fragment implements View.OnClickListene
         Log.d(TAG, "onViewCreated");
 
         mUploadButton.setOnClickListener(this);
+
+        mUploadProgress.setMax(100);
+        mUploadProgress.setProgress(0);
     }
 
     @Override
@@ -70,6 +111,8 @@ public class OCRActivityFragment extends Fragment implements View.OnClickListene
         super.onResume();
 
         Log.d(TAG, "onResume");
+
+        mUploadReceiver.register(getActivity());
 
         new Thread() {
             @Override
@@ -115,8 +158,18 @@ public class OCRActivityFragment extends Fragment implements View.OnClickListene
         super.onPause();
 
         Log.d(TAG, "onPause");
+
+        mUploadReceiver.unregister(getActivity());
     }
 
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        Log.d(TAG, "onAttach");
+
+        mActivity = activity;
+    }
 
     @Override
     public void onClick(View v) {
