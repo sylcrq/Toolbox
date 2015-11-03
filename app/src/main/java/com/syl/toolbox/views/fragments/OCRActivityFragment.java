@@ -10,17 +10,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
+import com.syl.toolbox.NotificationConfig;
 import com.syl.toolbox.R;
 import com.syl.toolbox.network.MyNetwork;
 import com.syl.toolbox.receivers.UploadServiceReceiver;
-import com.syl.toolbox.services.UploadService;
-
+import com.syl.toolbox.upload.MultipartUploadFile;
+import com.syl.toolbox.upload.MultipartUploadRequest;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -175,9 +174,25 @@ public class OCRActivityFragment extends Fragment implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.upload_button:
-                Log.d(TAG, "UI Thread="+Thread.currentThread().getId());
-                UploadService.startActionUpload(getActivity());
+                startUpload();
                 break;
         }
+    }
+
+    private void startUpload() {
+        final String url = "http://10.1.36.99:3000/upload/multipart";
+        final String method = "POST";
+
+        MultipartUploadRequest request = new MultipartUploadRequest(url, method);
+        request.setNotificationConfig(new NotificationConfig(1024));
+        request.addRequestHeader("hello", "world");
+
+        final String path = "/sdcard/DCIM/IQIYI/IQIYI_2015_1027_140229.mp4";
+        final String name = "IQIYI_2015_1027_140229";
+        final String filename = "IQIYI_2015_1027_140229.mp4";
+        final String contentType = "video/mpeg4";
+        request.addRequestFile(new MultipartUploadFile(path, name, filename, contentType));
+
+        request.startUpload(getActivity());
     }
 }

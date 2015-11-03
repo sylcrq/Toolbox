@@ -11,11 +11,9 @@ import com.syl.toolbox.services.UploadService;
  */
 public abstract class UploadTask {
 
-    protected UploadRequest mUploadRequest;
     protected UploadService mUploadService;
 
-    public UploadTask(UploadRequest request, UploadService service) {
-        this.mUploadRequest = request;
+    public UploadTask(UploadService service) {
         this.mUploadService = service;
     }
 

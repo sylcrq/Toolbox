@@ -1,10 +1,10 @@
 package com.syl.toolbox.upload;
 
-import android.os.Build;
+import android.content.Intent;
 import android.util.Log;
-
+import com.syl.toolbox.HTTPRequestHeader;
+import com.syl.toolbox.NotificationConfig;
 import com.syl.toolbox.services.UploadService;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,9 +12,8 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * Multipart Upload Task
@@ -61,6 +60,10 @@ public class MultipartUploadTask extends UploadTask {
     public static final String TWO_HYPHENS = "--";
     public static final int HTTP_UPLOAD_OK = 200;
 
+    public static final int HTTP_CONNECTION_TIMEOUT_DEFAULT = 3 * 1000;  // 3s
+    public static final int HTTP_READ_TIMEOUT_DEFAULT = 3 * 1000;  // 3s
+    public static final int FILE_BUFFER_SIZE = 4 * 1024;  // 4KB
+
     private HttpURLConnection mConnection;
     private OutputStream mOutputStream;
     private InputStream mInputStream;
@@ -70,8 +73,27 @@ public class MultipartUploadTask extends UploadTask {
     private byte[] mTrailerBytes;
     private long mTotalBodyLength;
 
-    public MultipartUploadTask(MultipartUploadRequest request, UploadService service) {
-        super(request, service);
+    // These upload request info come from Intent
+    private long mUploadId;
+    private String mUrl;
+    private String mMethod;
+    private ArrayList<HTTPRequestHeader> mHeaders;
+    private ArrayList<UploadFile> mFiles;
+    private NotificationConfig mNotificationConfig;
+
+    public MultipartUploadTask(UploadService service, Intent intent) {
+        super(service);
+
+        getUploadRequestInfo(intent);
+    }
+
+    public void getUploadRequestInfo(Intent intent) {
+        mUploadId = intent.getLongExtra(UploadService.UPLOAD_REQUEST_ID, 0);
+        mUrl = intent.getStringExtra(UploadService.UPLOAD_REQUEST_URL);
+        mMethod = intent.getStringExtra(UploadService.UPLOAD_REQUEST_METHOD);
+        mHeaders = intent.getParcelableArrayListExtra(UploadService.UPLOAD_REQUEST_HEADERS);
+        mFiles = intent.getParcelableArrayListExtra(UploadService.UPLOAD_REQUEST_FILES);
+        mNotificationConfig = intent.getParcelableExtra(UploadService.UPLOAD_REQUEST_NOTIFICATION_CONFIG);
     }
 
     @Override
@@ -164,13 +186,17 @@ public class MultipartUploadTask extends UploadTask {
      * @throws IOException
      */
     private HttpURLConnection getHTTPConnection() throws IOException {
-        URL url = new URL(mUploadRequest.getRequestUrl());
+        Log.d(TAG, "getHTTPConnection # Url=" + mUrl + ", Method=" + mMethod);
+
+        URL url = new URL(mUrl);
 
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
-        connection.setRequestMethod(METHOD_POST);
+        connection.setRequestMethod(mMethod);
         connection.setDoInput(true);
         connection.setDoOutput(true);
+        connection.setConnectTimeout(HTTP_CONNECTION_TIMEOUT_DEFAULT);
+        connection.setReadTimeout(HTTP_READ_TIMEOUT_DEFAULT);
 
         return connection;
     }
@@ -179,15 +205,22 @@ public class MultipartUploadTask extends UploadTask {
      * 设置Multipart HTTP Request Headers
      */
     private void setRequestHeaders() {
+        final String contentTypeKey = "Content-Type";
+        final String contentTypeValue = "multipart/form-data; boundary=" + mBoundary;
+        final String contentLengthKey = "Content-Length";
+        final String contentLengthValue = String.valueOf(mTotalBodyLength);
+
 //        mConnection.setRequestProperty("Connection", "keep-alive");
-        mConnection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + mBoundary);
-        mConnection.setRequestProperty("Content-Length", String.valueOf(mTotalBodyLength));
+        mConnection.setRequestProperty(contentTypeKey, contentTypeValue);
+        mConnection.setRequestProperty(contentLengthKey, contentLengthValue);
 
-        Map<String, String> headers = mUploadRequest.getRequestHeaders();
-        Set<String> headerSet = headers.keySet();
+        Log.d(TAG, "setRequestHeaders # " + contentTypeKey + " " + contentTypeValue);
+        Log.d(TAG, "setRequestHeaders # " + contentLengthKey + " " + contentLengthValue);
 
-        for (String key : headerSet) {
-            mConnection.setRequestProperty(key, headers.get(key));
+        ArrayList<HTTPRequestHeader> headers = mHeaders;
+        for(HTTPRequestHeader header : headers) {
+            mConnection.setRequestProperty(header.getKey(), header.getValue());
+            Log.d(TAG, "setRequestHeaders # " + header.getKey() + " " + header.getValue());
         }
     }
 
@@ -204,9 +237,10 @@ public class MultipartUploadTask extends UploadTask {
      * @throws IOException
      */
     private void writeBody() throws IOException {
-        List<UploadFile> files = mUploadRequest.getRequestFiles();
+        ArrayList<UploadFile> files = mFiles;
 
         for(UploadFile file : files) {
+            Log.d(TAG, "writeBody # "+file.getUploadFile().getAbsolutePath());
             writeParameters((MultipartUploadFile) file);
             writeFile((MultipartUploadFile) file);
         }
@@ -224,7 +258,7 @@ public class MultipartUploadTask extends UploadTask {
     private void writeFile(MultipartUploadFile file) throws IOException {
         InputStream inputStream = new FileInputStream(file.getUploadFile());
 
-        byte[] buffer = new byte[4096];
+        byte[] buffer = new byte[FILE_BUFFER_SIZE];
         int read;
         long sended = 0;
 
@@ -234,7 +268,7 @@ public class MultipartUploadTask extends UploadTask {
             sended += read;
             int percent = (int) (((double)sended / mTotalBodyLength) * 100);
 
-            Log.d(TAG, "uploading... " + percent + "%");
+            Log.d(TAG, "writeFile # uploading... " + percent + "%");
 
             mUploadService.sendUploadProgress(percent);
         }
@@ -248,7 +282,8 @@ public class MultipartUploadTask extends UploadTask {
     private long getTotalBodyLength() {
         long len = 0;
 
-        List<UploadFile> files = mUploadRequest.getRequestFiles();
+        List<UploadFile> files = mFiles;
+
         for(UploadFile file : files) {
             len += mBoundaryBytes.length;
             len += ((MultipartUploadFile) file).getMultipartUploadHeader().length();
@@ -256,6 +291,8 @@ public class MultipartUploadTask extends UploadTask {
         }
 
         len += mTrailerBytes.length;
+
+        Log.d(TAG, "getTotalBodyLength # len=" + len);
 
         return len;
     }
