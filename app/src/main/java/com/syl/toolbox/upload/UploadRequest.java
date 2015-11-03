@@ -1,8 +1,7 @@
 package com.syl.toolbox.upload;
 
 import android.content.Context;
-import com.syl.toolbox.HTTPRequestHeader;
-import com.syl.toolbox.NotificationConfig;
+
 import java.util.ArrayList;
 
 /**
@@ -19,7 +18,7 @@ public abstract class UploadRequest {
     private String mMethod;
     private ArrayList<HTTPRequestHeader> mHeaders;
     private ArrayList<UploadFile> mFiles;
-    private NotificationConfig mNotificationConfig;
+    private UploadNotificationConfig mNotificationConfig;
 
     public UploadRequest(String url, String method) {
         // TODO: unique Id
@@ -38,7 +37,7 @@ public abstract class UploadRequest {
         mFiles.add(file);
     }
 
-    public void setNotificationConfig(NotificationConfig config) {
+    public void setNotificationConfig(UploadNotificationConfig config) {
         this.mNotificationConfig = config;
     }
 
@@ -62,7 +61,7 @@ public abstract class UploadRequest {
         return mFiles;
     }
 
-    public NotificationConfig getNotificationConfig() {
+    public UploadNotificationConfig getNotificationConfig() {
         return mNotificationConfig;
     }
 

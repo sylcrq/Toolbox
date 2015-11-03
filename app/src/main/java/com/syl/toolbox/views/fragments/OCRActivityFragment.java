@@ -1,6 +1,7 @@
 package com.syl.toolbox.views.fragments;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,12 +11,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-import com.syl.toolbox.NotificationConfig;
+import com.syl.toolbox.upload.UploadNotificationConfig;
 import com.syl.toolbox.R;
 import com.syl.toolbox.network.MyNetwork;
 import com.syl.toolbox.receivers.UploadServiceReceiver;
 import com.syl.toolbox.upload.MultipartUploadFile;
 import com.syl.toolbox.upload.MultipartUploadRequest;
+import com.syl.toolbox.views.activities.ListViewActivity;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.HashMap;
@@ -184,7 +187,8 @@ public class OCRActivityFragment extends Fragment implements View.OnClickListene
         final String method = "POST";
 
         MultipartUploadRequest request = new MultipartUploadRequest(url, method);
-        request.setNotificationConfig(new NotificationConfig(1024));
+        Intent intent = new Intent(getActivity(), ListViewActivity.class);
+        request.setNotificationConfig(new UploadNotificationConfig(R.drawable.ic_stub, "This is Upload Service Notification", intent));
         request.addRequestHeader("hello", "world");
 
         final String path = "/sdcard/DCIM/IQIYI/IQIYI_2015_1027_140229.mp4";

@@ -7,10 +7,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
-import com.syl.toolbox.R;
 import com.syl.toolbox.receivers.UploadServiceReceiver;
 import com.syl.toolbox.upload.MultipartUploadTask;
-import com.syl.toolbox.views.activities.ListViewActivity;
+import com.syl.toolbox.upload.UploadNotificationConfig;
 
 
 /**
@@ -22,7 +21,7 @@ public class UploadService extends IntentService {
     public static final String TAG = UploadService.class.getSimpleName();
 
     public static final String ACTION_UPLOAD = "com.syl.toolbox.services.action.UPLOAD";
-    public static final String UPLOAD_NOTIFICATION_TITLE = "My Upload Service Notification";
+//    public static final String UPLOAD_NOTIFICATION_TITLE = "My Upload Service Notification";
     public static final int UPLOAD_NOTIFICATION_ID = 1024;
 
     public static final String UPLOAD_REQUEST_TYPE = "UPLOAD_REQUEST_TYPE";
@@ -34,6 +33,8 @@ public class UploadService extends IntentService {
     public static final String UPLOAD_REQUEST_NOTIFICATION_CONFIG = "UPLOAD_REQUEST_NOTIFICATION_CONFIG";
 
     public static final int UPLOAD_REQUEST_MULTIPART = 1;
+
+    private UploadNotificationConfig mNotificationConfig;
 
     public UploadService() {
         super("MyIntentService");
@@ -52,6 +53,8 @@ public class UploadService extends IntentService {
 
             if(ACTION_UPLOAD.equals(action)) {
                 if(UPLOAD_REQUEST_MULTIPART == intent.getIntExtra(UPLOAD_REQUEST_TYPE, 0)) {
+                    mNotificationConfig = intent.getParcelableExtra(UPLOAD_REQUEST_NOTIFICATION_CONFIG);
+
                     MultipartUploadTask task = new MultipartUploadTask(this, intent);
                     task.upload();
                 }
@@ -83,7 +86,9 @@ public class UploadService extends IntentService {
         intent.putExtra(UploadServiceReceiver.UPLOAD_STATUS, UploadServiceReceiver.UPLOAD_STATUS_START);
         sendBroadcast(intent);
 
-        showNotification("Start");
+        if(mNotificationConfig != null) {
+            showNotification(mNotificationConfig.getStartTip());
+        }
     }
 
     public void sendUploadStop() {
@@ -92,7 +97,9 @@ public class UploadService extends IntentService {
         intent.putExtra(UploadServiceReceiver.UPLOAD_STATUS, UploadServiceReceiver.UPLOAD_STATUS_STOP);
         sendBroadcast(intent);
 
-        showNotification("Stop");
+        if(mNotificationConfig != null) {
+            showNotification(mNotificationConfig.getStopTip());
+        }
     }
 
     public void sendUploadComplete() {
@@ -101,7 +108,9 @@ public class UploadService extends IntentService {
         intent.putExtra(UploadServiceReceiver.UPLOAD_STATUS, UploadServiceReceiver.UPLOAD_STATUS_COMPLETE);
         sendBroadcast(intent);
 
-        showNotification("Complete");
+        if(mNotificationConfig != null) {
+            showNotification(mNotificationConfig.getCompleteTip());
+        }
     }
 
     public void sendUploadError() {
@@ -110,7 +119,9 @@ public class UploadService extends IntentService {
         intent.putExtra(UploadServiceReceiver.UPLOAD_STATUS, UploadServiceReceiver.UPLOAD_STATUS_ERROR);
         sendBroadcast(intent);
 
-        showNotification("Error");
+        if(mNotificationConfig != null) {
+            showNotification(mNotificationConfig.getErrorTip());
+        }
     }
 
     public void sendUploadProgress(int percent) {
@@ -120,7 +131,9 @@ public class UploadService extends IntentService {
         intent.putExtra(UploadServiceReceiver.UPLOAD_PROGRESS, percent);
         sendBroadcast(intent);
 
-        showNotification("Uploading...");
+        if(mNotificationConfig != null) {
+            showNotification("Uploading...");
+        }
     }
 
     /**
@@ -129,17 +142,18 @@ public class UploadService extends IntentService {
      * @param content
      */
     public void showNotification(String content) {
+
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-        builder.setSmallIcon(R.drawable.ic_stub);
-        builder.setContentTitle(UPLOAD_NOTIFICATION_TITLE);
+        builder.setSmallIcon(mNotificationConfig.getIcon());
+        builder.setContentTitle(mNotificationConfig.getContentTitle());
         builder.setContentText(content);
 
         // setContentIntent
-        Intent intent = new Intent(this, ListViewActivity.class);
+//        Intent intent = new Intent(this, ListViewActivity.class);
 
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-        stackBuilder.addParentStack(ListViewActivity.class);
-        stackBuilder.addNextIntent(intent);
+//        stackBuilder.addParentStack(ListViewActivity.class);
+        stackBuilder.addNextIntent(mNotificationConfig.getClickIntent());
 
         PendingIntent pendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setContentIntent(pendingIntent);

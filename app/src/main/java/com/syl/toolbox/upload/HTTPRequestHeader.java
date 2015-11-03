@@ -1,4 +1,4 @@
-package com.syl.toolbox;
+package com.syl.toolbox.upload;
 
 import android.os.Parcel;
 import android.os.Parcelable;

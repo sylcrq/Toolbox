@@ -2,8 +2,7 @@ package com.syl.toolbox.upload;
 
 import android.content.Intent;
 import android.util.Log;
-import com.syl.toolbox.HTTPRequestHeader;
-import com.syl.toolbox.NotificationConfig;
+
 import com.syl.toolbox.services.UploadService;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -79,7 +78,7 @@ public class MultipartUploadTask extends UploadTask {
     private String mMethod;
     private ArrayList<HTTPRequestHeader> mHeaders;
     private ArrayList<UploadFile> mFiles;
-    private NotificationConfig mNotificationConfig;
+    private UploadNotificationConfig mNotificationConfig;
 
     public MultipartUploadTask(UploadService service, Intent intent) {
         super(service);
