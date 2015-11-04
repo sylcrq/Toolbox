@@ -11,22 +11,29 @@ import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
-
 import com.syl.toolbox.R;
 import com.syl.toolbox.views.activities.MainActivity;
 
+import java.util.Random;
+
 public class LocalService extends Service {
+
     public static final String TAG = LocalService.class.getSimpleName();
 
     private NotificationManager mNotificationManager;
     private int NOTIFICATION = R.string.local_service_started;
     private final IBinder mBinder = new LocalBinder();
+    private final Random mRandom = new Random();
 
     public LocalService() {
     }
 
+    /**
+     * Class used for the client Binder.
+     */
     public class LocalBinder extends Binder {
         public LocalService getService() {
+            // Return this instance of LocalService so clients can call public methods
             return LocalService.this;
         }
     }
@@ -63,6 +70,29 @@ public class LocalService extends Service {
         Log.d(TAG, "onStartCommand: " + "received start id=" + startId + " : " + intent);
 
         return START_NOT_STICKY;
+    }
+
+    @Override
+    public void onRebind(Intent intent) {
+        super.onRebind(intent);
+
+        Log.d(TAG, "onRebind");
+    }
+
+    @Override
+    public boolean onUnbind(Intent intent) {
+        Log.d(TAG, "onUnbind");
+
+        return super.onUnbind(intent);
+    }
+
+    /**
+     * method for clients
+     *
+     * @return
+     */
+    public int getRandomNumber() {
+        return mRandom.nextInt(100);
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)

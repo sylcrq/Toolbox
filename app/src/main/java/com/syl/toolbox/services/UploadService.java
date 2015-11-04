@@ -37,7 +37,7 @@ public class UploadService extends IntentService {
     private UploadNotificationConfig mNotificationConfig;
 
     public UploadService() {
-        super("MyIntentService");
+        super("UploadService");
     }
 
 //    public static void startActionUpload(Context context) {

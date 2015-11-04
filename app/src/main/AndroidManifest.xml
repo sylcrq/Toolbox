@@ -13,7 +13,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
 
-        <!-- Activity -->
+        <!-- Activities are declared here -->
         <activity
             android:name=".views.activities.MainActivity"
             android:label="@string/app_name" >
@@ -51,17 +51,6 @@
             android:name=".views.activities.OCRActivity"
             android:label="@string/title_activity_ocr" >
         </activity>
-
-        <!-- Service -->
-        <service
-            android:name=".services.LocalService"
-            android:enabled="true"
-            android:exported="true" >
-        </service>
-        <service
-            android:name=".services.UploadService"
-            android:exported="false" >
-        </service>
 
         <activity
             android:name=".views.activities.CursorLoaderListActivity"
@@ -119,6 +108,30 @@
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
 
+        <!-- Services are declared here -->
+        <service
+            android:name=".services.LocalService"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
+        <service
+            android:name=".services.UploadService"
+            android:exported="false" >
+        </service>
+        <service
+            android:name=".services.RemoteService"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":remote_service" >
+        </service>
+        <service
+            android:name=".services.MessengerService"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":messenger_service">
+        </service>
+
+        <!-- Receivers are declared here -->
         <receiver
             android:name=".receivers.StaticPublishReceiver"
             android:enabled="true"
@@ -127,6 +140,7 @@
                 <action android:name="com.syl.toolbox.receivers.StaticPublishReceiver" />
             </intent-filter>
         </receiver>
+
     </application>
 
 </manifest>

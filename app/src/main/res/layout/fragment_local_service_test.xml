@@ -9,6 +9,7 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.syl.toolbox.views.fragments.LocalServiceTestActivityFragment">
 
+    <!-- Local Service Test Button -->
     <Button
         android:id="@+id/start_service"
         android:layout_width="wrap_content"
@@ -35,4 +36,58 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/bind_service"
         android:text="Unbind Service"/>
+
+    <Button
+        android:id="@+id/call"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/unbind_service"
+        android:text="Call"/>
+
+    <!-- Remote Service Test Button -->
+    <Button
+        android:id="@+id/bind_remote_service"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="Bind Remote Service"/>
+
+    <Button
+        android:id="@+id/unbind_remote_service"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bind_remote_service"
+        android:layout_alignParentRight="true"
+        android:text="Unbind Remote Service"/>
+
+    <Button
+        android:id="@+id/say_hello"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/unbind_remote_service"
+        android:layout_alignParentRight="true"
+        android:text="Say Hello"/>
+
+    <!-- AIDL Remote Service Test Button -->
+    <Button
+        android:id="@+id/bind_aidl_service"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/call"
+        android:text="Bind AIDL Service"
+        android:layout_marginTop="50dp" />
+
+    <Button
+        android:id="@+id/unbind_aidl_service"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bind_aidl_service"
+        android:text="UnBind AIDL Service" />
+
+    <Button
+        android:id="@+id/call_aidl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/unbind_aidl_service"
+        android:text="Call AIDL" />
 </RelativeLayout>
