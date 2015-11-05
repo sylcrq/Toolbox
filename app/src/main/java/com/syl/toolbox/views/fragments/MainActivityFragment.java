@@ -13,6 +13,7 @@ import android.widget.ListView;
 
 import com.syl.toolbox.R;
 import com.syl.toolbox.views.activities.CursorLoaderListActivity;
+import com.syl.toolbox.views.activities.CustomViewActivity;
 import com.syl.toolbox.views.activities.GirlsPicActivity;
 import com.syl.toolbox.views.activities.IPAddressActivity;
 import com.syl.toolbox.views.activities.IdentityActivity;
@@ -82,7 +83,8 @@ public class MainActivityFragment extends Fragment {
                                 "SingleTop Mode",
                                 "SingleTask Mode",
                                 "SingleInstance Mode",
-                                mToastTitle
+                                mToastTitle,
+                                "Custom View Demo"
                                 };
 
         final Class[] clazz = {WeatherActivity.class,
@@ -97,7 +99,8 @@ public class MainActivityFragment extends Fragment {
                                 SingleTopAActivity.class,
                                 SingleTaskAActivity.class,
                                 SingleInstanceAActivity.class,
-                                ToastActivity.class
+                                ToastActivity.class,
+                                CustomViewActivity.class
                                 };
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, array);
