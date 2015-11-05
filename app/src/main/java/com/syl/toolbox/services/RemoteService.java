@@ -18,6 +18,8 @@ public class RemoteService extends Service {
 
         @Override
         public int getPid() throws RemoteException {
+            Log.d(TAG, "getPid # Pid=" + Process.myPid() + ", ThreadId=" + Thread.currentThread().getId());
+
             return Process.myPid();
         }
     };

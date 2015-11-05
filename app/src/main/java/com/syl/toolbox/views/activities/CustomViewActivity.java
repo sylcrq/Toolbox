@@ -5,11 +5,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.desmond.ripple.RippleCompat;
+import com.syl.toolbox.MessageEvent;
 import com.syl.toolbox.R;
 import com.syl.toolbox.views.PieChart;
+
+import de.greenrobot.event.EventBus;
 
 public class CustomViewActivity extends AppCompatActivity {
 
@@ -36,7 +39,27 @@ public class CustomViewActivity extends AppCompatActivity {
         ((Button) findViewById(R.id.hello_world)).setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 pie.setCurrentItem(0);
+
+                EventBus.getDefault().post(new MessageEvent("Hello EventBus !"));
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onStop() {
+        EventBus.getDefault().unregister(this);
+
+        super.onStop();
+    }
+
+    public void onEvent(MessageEvent event) {
+        Toast.makeText(this, event.message, Toast.LENGTH_SHORT).show();
     }
 }
