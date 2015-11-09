@@ -21,6 +21,8 @@ public class ListViewAdapter extends BaseAdapter {
 
     public static final String TAG = ListViewAdapter.class.getSimpleName();
 
+    public static final int VIEW_TYPE_COUNT = 2;
+
     private List<PersonInfo> mData;
     private Context mContext;
 
@@ -52,7 +54,12 @@ public class ListViewAdapter extends BaseAdapter {
 
         if(convertView == null) {
             Log.d(TAG, "getView: convertView is NULL");
-            convertView = View.inflate(mContext, R.layout.list_view_item, null);
+
+            if(getItemViewType(position) == 0) {
+                convertView = View.inflate(mContext, R.layout.list_view_item, null);
+            } else if(getItemViewType(position) == 1) {
+                convertView = View.inflate(mContext, R.layout.list_view_item_2, null);
+            }
 
             viewHolder = new ViewHolder();
             viewHolder.iv_avatar = (ImageView) convertView.findViewById(R.id.avatar);
@@ -68,6 +75,20 @@ public class ListViewAdapter extends BaseAdapter {
         viewHolder.tv_age.setText(String.valueOf(info.getAge()));
 
         return convertView;
+    }
+
+    @Override
+    public int getViewTypeCount() {
+//        return super.getViewTypeCount();
+        return VIEW_TYPE_COUNT;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+//        return super.getItemViewType(position);
+        PersonInfo info = (PersonInfo) getItem(position);
+
+        return info.getType();
     }
 
     private static class ViewHolder {

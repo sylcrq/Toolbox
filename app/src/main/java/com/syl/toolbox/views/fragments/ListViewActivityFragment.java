@@ -50,7 +50,7 @@ public class ListViewActivityFragment extends Fragment {
         // 添加测试数据
         List<PersonInfo> data = new ArrayList<>();
         for(int i=0; i<100; i++) {
-            data.add(new PersonInfo("Jake Wharton "+i, 1024+i, ""));
+            data.add(new PersonInfo("Jake Wharton "+i, 1024+i, "", i%2));
         }
 
         ListViewAdapter adapter = new ListViewAdapter(getActivity(), data);

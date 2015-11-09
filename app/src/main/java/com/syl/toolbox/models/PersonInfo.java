@@ -8,11 +8,13 @@ public class PersonInfo {
     private String name;
     private int age;
     private String avatar;
+    private int type;
 
-    public PersonInfo(String name, int age, String avatar) {
+    public PersonInfo(String name, int age, String avatar, int type) {
         this.name = name;
         this.age = age;
         this.avatar = avatar;
+        this.type = type;
     }
 
     public String getName() {
@@ -39,12 +41,21 @@ public class PersonInfo {
         this.avatar = avatar;
     }
 
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
     @Override
     public String toString() {
         return "PersonInfo{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
+                "age=" + age +
+                ", name='" + name + '\'' +
                 ", avatar='" + avatar + '\'' +
+                ", type=" + type +
                 '}';
     }
 }
