@@ -20,6 +20,7 @@ import com.syl.toolbox.views.activities.IdentityActivity;
 import com.syl.toolbox.views.activities.ListViewActivity;
 import com.syl.toolbox.views.activities.LocalServiceTestActivity;
 import com.syl.toolbox.views.activities.OCRActivity;
+import com.syl.toolbox.views.activities.SkinActivity;
 import com.syl.toolbox.views.activities.ToastActivity;
 import com.syl.toolbox.views.activities.launchMode.SingleInstanceAActivity;
 import com.syl.toolbox.views.activities.launchMode.SingleTaskAActivity;
@@ -84,7 +85,8 @@ public class MainActivityFragment extends Fragment {
                                 "SingleTask Mode",
                                 "SingleInstance Mode",
                                 mToastTitle,
-                                "Custom View Demo"
+                                "Custom View Demo",
+                                "换肤Demo"
                                 };
 
         final Class[] clazz = {WeatherActivity.class,
@@ -100,7 +102,8 @@ public class MainActivityFragment extends Fragment {
                                 SingleTaskAActivity.class,
                                 SingleInstanceAActivity.class,
                                 ToastActivity.class,
-                                CustomViewActivity.class
+                                CustomViewActivity.class,
+                                SkinActivity.class
                                 };
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, array);

@@ -25,87 +25,88 @@
         </activity>
         <activity
             android:name=".views.activities.WeatherActivity"
-            android:label="@string/title_activity_weather"/>
+            android:label="@string/title_activity_weather" />
         <activity
             android:name=".views.activities.IdentityActivity"
-            android:label="@string/title_activity_identity"/>
+            android:label="@string/title_activity_identity" />
         <activity
             android:name=".views.activities.IPAddressActivity"
-            android:label="@string/title_activity_ipaddress"/>
+            android:label="@string/title_activity_ipaddress" />
         <activity
             android:name=".views.activities.GirlsPicActivity"
-            android:label="@string/title_activity_girls_pic"/>
+            android:label="@string/title_activity_girls_pic" />
         <activity
             android:name=".views.activities.ListViewActivity"
-            android:label="@string/title_activity_list_view"/>
+            android:label="@string/title_activity_list_view" />
         <activity
             android:name=".views.activities.LocalServiceTestActivity"
-            android:label="@string/title_activity_local_service_test"/>
+            android:label="@string/title_activity_local_service_test" />
         <activity
             android:name=".views.activities.OCRActivity"
-            android:label="@string/title_activity_ocr"/>
+            android:label="@string/title_activity_ocr" />
         <activity
             android:name=".views.activities.CursorLoaderListActivity"
-            android:label="@string/title_activity_cursor_loader_list"/>
+            android:label="@string/title_activity_cursor_loader_list" />
 
         <!-- LaunchMode Example Activity Start -->
-        <activity android:name=".views.activities.launchMode.StandardAActivity"/>
-        <activity android:name=".views.activities.launchMode.StandardBActivity"/>
-        <activity android:name=".views.activities.launchMode.StandardCActivity"/>
+        <activity android:name=".views.activities.launchMode.StandardAActivity" />
+        <activity android:name=".views.activities.launchMode.StandardBActivity" />
+        <activity android:name=".views.activities.launchMode.StandardCActivity" />
         <activity
             android:name=".views.activities.launchMode.SingleTopAActivity"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop" />
         <activity
             android:name=".views.activities.launchMode.SingleTopBActivity"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop" />
         <activity
             android:name=".views.activities.launchMode.SingleTopCActivity"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop" />
         <activity
             android:name=".views.activities.launchMode.SingleTaskAActivity"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask" />
         <activity
             android:name=".views.activities.launchMode.SingleTaskBActivity"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask" />
         <activity
             android:name=".views.activities.launchMode.SingleTaskCActivity"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask" />
         <activity
             android:name=".views.activities.launchMode.SingleInstanceAActivity"
-            android:launchMode="singleInstance"/>
+            android:launchMode="singleInstance" />
         <activity
             android:name=".views.activities.launchMode.SingleInstanceBActivity"
-            android:launchMode="singleInstance"/>
+            android:launchMode="singleInstance" />
         <activity
             android:name=".views.activities.launchMode.SingleInstanceCActivity"
-            android:launchMode="singleInstance"/>
+            android:launchMode="singleInstance" />
         <!-- LaunchMode Example Activity End -->
 
         <activity
             android:name=".views.activities.ToastActivity"
             android:label="@string/title_activity_toast"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".views.activities.CustomViewActivity" />
 
-        <activity android:name=".views.activities.CustomViewActivity"/>
+        <activity android:name=".views.activities.SkinActivity" />
 
         <!-- Services are declared here -->
         <service
             android:name=".services.LocalService"
             android:enabled="true"
-            android:exported="true"/>
+            android:exported="true" />
         <service
             android:name=".services.UploadService"
-            android:exported="false"/>
+            android:exported="false" />
         <service
             android:name=".services.RemoteService"
             android:enabled="true"
             android:exported="true"
-            android:process=":remote_service"/>
+            android:process=":remote_service" />
         <service
             android:name=".services.MessengerService"
             android:enabled="true"
             android:exported="true"
-            android:process=":messenger_service"/>
+            android:process=":messenger_service" />
 
         <!-- Receivers are declared here -->
         <receiver
@@ -116,6 +117,7 @@
                 <action android:name="com.syl.toolbox.receivers.StaticPublishReceiver" />
             </intent-filter>
         </receiver>
+
     </application>
 
 </manifest>
