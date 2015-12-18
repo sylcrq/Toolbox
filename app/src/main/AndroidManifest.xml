@@ -86,8 +86,9 @@
             android:label="@string/title_activity_toast"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".views.activities.CustomViewActivity" />
-
         <activity android:name=".views.activities.SkinActivity" />
+
+        <activity android:name=".views.activities.RecyclerActivity" />
 
         <!-- Services are declared here -->
         <service
