@@ -32,6 +32,15 @@
             android:text="17"
             android:paddingTop="10dp"/>
 
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:layout_marginTop="10dp"
+            android:textColor="#333333"
+            android:textSize="13sp"
+            android:text="很长很长很长很长很长很长很长很长很长很长的测试标题" />
     </LinearLayout>
 
 </LinearLayout>

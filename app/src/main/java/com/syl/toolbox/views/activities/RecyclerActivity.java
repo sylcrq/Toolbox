@@ -1,5 +1,6 @@
 package com.syl.toolbox.views.activities;
 
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -21,6 +22,8 @@ public class RecyclerActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerView.Adapter mAdapter;
 
+    private Parcelable mSavedState;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +33,8 @@ public class RecyclerActivity extends AppCompatActivity {
 
 //        mLayoutManager = new LinearLayoutManager(this);  // ListView
 //        mLayoutManager = new GridLayoutManager(this, 2);  // GridView
-        mLayoutManager = new StaggeredGridLayoutManager(2, OrientationHelper.VERTICAL);  // 瀑布流
+//        mLayoutManager = new StaggeredGridLayoutManager(2, OrientationHelper.VERTICAL);  // 瀑布流
+        mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         // 测试数据
@@ -41,5 +45,19 @@ public class RecyclerActivity extends AppCompatActivity {
 
         mAdapter = new RecyclerAdapter(data);
         mRecyclerView.setAdapter(mAdapter);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        mSavedState = ((LinearLayoutManager) mRecyclerView.getLayoutManager()).onSaveInstanceState();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        ((LinearLayoutManager) mRecyclerView.getLayoutManager()).onRestoreInstanceState(mSavedState);
     }
 }
