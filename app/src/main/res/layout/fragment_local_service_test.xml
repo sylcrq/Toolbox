@@ -90,4 +90,27 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/unbind_aidl_service"
         android:text="Call AIDL" />
+
+    <Button
+        android:id="@+id/call_join"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/call_aidl"
+        android:text="Join"/>
+
+    <Button
+        android:id="@+id/call_leave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/call_aidl"
+        android:layout_toRightOf="@+id/call_join"
+        android:text="Leave"/>
+
+    <Button
+        android:id="@+id/call_get_clients"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/call_aidl"
+        android:layout_toRightOf="@+id/call_leave"
+        android:text="Get Clients"/>
 </RelativeLayout>

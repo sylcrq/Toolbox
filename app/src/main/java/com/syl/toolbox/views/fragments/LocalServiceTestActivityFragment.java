@@ -5,6 +5,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.os.Binder;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
@@ -18,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.syl.toolbox.services.IClientCallback;
 import com.syl.toolbox.services.IRemoteService;
 import com.syl.toolbox.services.LocalService;
 import com.syl.toolbox.R;
@@ -45,6 +47,9 @@ public class LocalServiceTestActivityFragment extends Fragment implements View.O
     @Bind(R.id.bind_aidl_service) Button mBindAIDLButton;
     @Bind(R.id.unbind_aidl_service) Button mUnbindAIDLButton;
     @Bind(R.id.call_aidl) Button mCallAIDLButton;
+    @Bind(R.id.call_join) Button mCallJoinButton;
+    @Bind(R.id.call_leave) Button mCallLeaveButton;
+    @Bind(R.id.call_get_clients) Button mCallGetClientsButton;
 
     private Activity mActivity;
 
@@ -52,6 +57,7 @@ public class LocalServiceTestActivityFragment extends Fragment implements View.O
     private boolean mIsBound = false;
     private LocalService mBoundService;
 
+    private IBinder mToken = new Binder();
 
     /**
      * Defines callbacks for service binding, passed to bindService()
@@ -116,14 +122,38 @@ public class LocalServiceTestActivityFragment extends Fragment implements View.O
 
             mAIDLService = IRemoteService.Stub.asInterface(service);
             mAIDLIsBound = true;
+
+            try {
+                mAIDLService.registerClientCallback(mCallback);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
         }
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
             Log.d(TAG, "onServiceDisconnected # " + name);
 
+            try {
+                mAIDLService.unregisterClientCallback(mCallback);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+
             mAIDLService = null;
             mAIDLIsBound = false;
+        }
+    };
+
+    private IClientCallback mCallback = new IClientCallback.Stub() {
+        @Override
+        public void onJoin(String user) throws RemoteException {
+            Log.d(TAG, "onJoin # " + user);
+        }
+
+        @Override
+        public void onLeave(String user) throws RemoteException {
+            Log.d(TAG, "onLeave # " + user);
         }
     };
 
@@ -158,6 +188,9 @@ public class LocalServiceTestActivityFragment extends Fragment implements View.O
         mBindAIDLButton.setOnClickListener(this);
         mUnbindAIDLButton.setOnClickListener(this);
         mCallAIDLButton.setOnClickListener(this);
+        mCallJoinButton.setOnClickListener(this);
+        mCallLeaveButton.setOnClickListener(this);
+        mCallGetClientsButton.setOnClickListener(this);
     }
 
     @Override
@@ -239,6 +272,15 @@ public class LocalServiceTestActivityFragment extends Fragment implements View.O
                 break;
             case R.id.call_aidl:
                 callAIDL();
+                break;
+            case R.id.call_join:
+                callJoin();
+                break;
+            case R.id.call_leave:
+                callLeave();
+                break;
+            case R.id.call_get_clients:
+                callGetClient();
                 break;
             default:
                 break;
@@ -331,6 +373,36 @@ public class LocalServiceTestActivityFragment extends Fragment implements View.O
             Toast.makeText(mActivity, "AIDL Service ProcessId=" + pid, Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(mActivity, "还没有绑定到一个Service !!!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void callJoin() {
+        if(mAIDLIsBound) {
+            try {
+                mAIDLService.join(mToken, "syl");
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void callLeave() {
+        if(mAIDLIsBound) {
+            try {
+                mAIDLService.leave(mToken, "syl");
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void callGetClient() {
+        if(mAIDLIsBound) {
+            try {
+                mAIDLService.getClients();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
